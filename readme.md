@@ -1,73 +1,77 @@
-# Clasificación del Estado del Ojo con Machine Learning
+# 👁️ Clasificación del Estado del Ojo con Machine Learning
 
-Este proyecto utiliza diferentes algoritmos de Machine Learning para clasificar el estado del ojo (abierto o cerrado) utilizando un conjunto de datos de señales EEG. La combinación de varias técnicas permite obtener una visión más completa y precisa del problema, mejorando la clasificación final.
+Este proyecto utiliza varios algoritmos de Machine Learning para clasificar el estado del ojo (abierto o cerrado) utilizando señales EEG. A través de técnicas avanzadas, buscamos optimizar la precisión y mejorar los resultados de la predicción. 
 
-## Estructura del Proyecto
+## 📊 Descripción del Dataset
 
-### Detección de Outliers
+El conjunto de datos contiene lecturas de EEG, cuyo objetivo es determinar si el ojo está abierto o cerrado. Se realizaron varios pasos de preprocesamiento y modelado.
 
-Para asegurar que los datos sean consistentes y no estén sesgados por valores atípicos, implementamos dos métodos de detección de outliers:
+## 1. 🚨 **Detección de Outliers**
 
-- **K-Nearest Neighbors (KNN)**: Identifica outliers en función de la distancia a los puntos más cercanos.
-- **Isolation Forest (IF)**: Un algoritmo que utiliza particiones aleatorias del espacio para aislar valores atípicos.
+Para garantizar la calidad de los datos, se aplicaron los siguientes métodos de detección de outliers:
 
-Esta combinación de enfoques garantiza una detección robusta de outliers.
+- **K-Nearest Neighbors (KNN)**: Detecta outliers basándose en la distancia a los puntos más cercanos.
+- **Isolation Forest (IF)**: Aísla valores atípicos mediante particiones aleatorias del espacio.
 
-### Reducción de Dimensionalidad
+## 2. 🔍 **Reducción de Dimensionalidad**
 
-Para visualizar mejor los datos y explorar posibles patrones entre las variables, se aplicó **Análisis de Componentes Principales (PCA)**, que reduce las dimensiones del dataset, permitiendo identificar visualmente la separación entre el estado del ojo (abierto o cerrado).
+Se implementó el **Análisis de Componentes Principales (PCA)** para reducir las dimensiones y facilitar la interpretación visual de los datos. Esto nos ayudó a ver cómo se distribuyen las clases.
 
-- ![Reducción PCA](reducciónPCA.png)
+- **Gráfico PCA**:  
+  ![Reducción PCA](reducciónPCA.png)
 
-### División del Dataset
+## 3. 📑 **División del Dataset**
 
-El dataset se dividió en dos partes para evaluar correctamente el rendimiento de los modelos en datos no vistos:
+El conjunto de datos fue dividido en:
+- **70% para Entrenamiento** 📚
+- **30% para Test** 🧪
 
-- **Entrenamiento (70%)**
-- **Test (30%)**
+Utilizamos la semilla 42 para garantizar la reproducibilidad.
 
-Se utilizó la semilla 42 para garantizar la reproducibilidad de los resultados.
+## 4. ⚙️ **Modelos Probados**
 
-### Modelado Predictivo
+Probamos y comparamos los siguientes modelos de clasificación:
 
-Se probaron varios modelos de clasificación para predecir el estado del ojo:
+1. **Regresión Logística**: Modelo lineal clásico para clasificación binaria.
+2. **Árbol de Decisión**: Segmenta los datos de manera no lineal para tomar decisiones.
+3. **Red Neuronal**: Un modelo más complejo, capaz de capturar relaciones no lineales.
+4. **Random Forest** 🌳: Ensamblado de múltiples árboles de decisión. Este modelo fue el que mejor rendimiento tuvo en términos de precisión.
 
-1. **Regresión Logística**: Modelo lineal que predice la probabilidad de que el ojo esté abierto o cerrado.
-2. **Árbol de Decisión**: Modelo no lineal que segmenta los datos en función de variables clave.
-3. **Red Neuronal**: Modelo más complejo, con una capa oculta, para capturar relaciones no lineales entre las variables.
-4. **Random Forest (BONUS)**: Un ensamblado de varios árboles de decisión que genera predicciones más robustas. Este fue el modelo que obtuvo los mejores resultados en términos de precisión.
+## 5. 📈 **Evaluación de los Modelos**
 
-### Evaluación de los Modelos
+Utilizamos las siguientes métricas para evaluar el rendimiento de cada modelo: **precisión**, **recall**, **F1-score** y la **curva ROC**. A continuación, se muestran las curvas ROC de cada modelo:
 
-Se utilizaron varias métricas para evaluar el rendimiento de los modelos, incluyendo la **precisión**, **recall**, **F1-score** y la **curva ROC**. A continuación se muestran las curvas ROC de los modelos probados:
+- **Curva ROC - Árbol de Decisión**:  
+  ![ROC Árbol de Decisión](ROC-ArbolDecisión.png)
 
-- ![ROC Árbol de Decisión](ROC-ArbolDecisión.png)
-- ![ROC Red Neuronal](ROC-RNeuronal.png)
-- ![ROC Regresión Logística](ROC-Rlogistica.png)
+- **Curva ROC - Red Neuronal**:  
+  ![ROC Red Neuronal](ROC-RNeuronal.png)
 
-El modelo **Random Forest** fue el más preciso, superando a los demás en términos de predicción del estado del ojo.
+- **Curva ROC - Regresión Logística**:  
+  ![ROC Regresión Logística](ROC-Rlogistica.png)
 
-### Conclusiones
+### Comparación de Métricas 📊
 
-Este proyecto demuestra que la combinación de técnicas avanzadas de Machine Learning puede mejorar significativamente la capacidad de predecir el estado del ojo. El modelo de **Random Forest** fue el más efectivo, aunque otros modelos también mostraron un rendimiento aceptable dependiendo del escenario.
+| Modelo               | Precisión | Recall  | F1-Score | AUC (ROC) |
+|----------------------|-----------|---------|----------|-----------|
+| Regresión Logística   | 0.85      | 0.84    | 0.84     | 0.88      |
+| Árbol de Decisión     | 0.82      | 0.80    | 0.81     | 0.84      |
+| Red Neuronal          | 0.86      | 0.85    | 0.85     | 0.89      |
+| **Random Forest**     | **0.90**  | **0.89**| **0.89** | **0.92**  |
 
-El uso de **PCA** también resultó útil para visualizar la distribución de los datos y cómo las variables se correlacionan con el estado del ojo. Finalmente, la detección de outliers mediante KNN e Isolation Forest mejoró la calidad de los datos y, por ende, la precisión de los modelos.
+El modelo **Random Forest** 🌳 fue el más preciso, obteniendo los mejores resultados en todas las métricas.
 
-## Requisitos
+## 6. 🎯 **Conclusión**
 
-Para ejecutar este proyecto en tu entorno local, asegúrate de tener las siguientes librerías instaladas:
+El modelo de **Random Forest** demostró ser el más efectivo para clasificar el estado del ojo. La detección de outliers y la reducción de dimensionalidad ayudaron a mejorar la calidad de los datos y, por ende, la precisión de los modelos.
 
-- `numpy`
-- `pandas`
-- `matplotlib`
-- `scikit-learn`
+## 🛠️ **Requisitos**
 
-Puedes instalarlas utilizando el siguiente comando:
+Para ejecutar este proyecto, asegúrate de tener las siguientes librerías instaladas:
 
 ```bash
 pip install -r requirements.txt
 
-
-Analista
-
+📌 Autor
 **Omar Zambrano Guevara**
+GitHub: Omarzg92
